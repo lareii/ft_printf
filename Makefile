@@ -6,7 +6,7 @@ RM			= rm -rf
 
 BUILD_DIR	= build
 VPATH		= src
-SRCS		= ft_printf.c ft_printf_utils.c
+SRCS		= ft_printf.c ft_putaddr.c ft_putchar.c ft_putnbr.c ft_putstr.c
 OBJS		= $(addprefix $(BUILD_DIR)/,$(SRCS:.c=.o))
 
 all: $(NAME)
