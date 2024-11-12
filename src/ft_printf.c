@@ -6,19 +6,18 @@
 /*   By: ebabaogl <ebabaogl@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:36:54 by ebabaogl          #+#    #+#             */
-/*   Updated: 2024/11/11 15:40:39 by ebabaogl         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:16:33 by ebabaogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdarg.h>
-#include <stdio.h>
 
 static int	specifier_check(const char *format, va_list args)
 {
 	int	count;
 
-	count = 0;
+	count = -1;
 	if (*format == '%')
 		count = ft_putchar(*format);
 	else if (*format == 'c')
@@ -33,6 +32,11 @@ static int	specifier_check(const char *format, va_list args)
 		count = ft_puthexnbr(va_arg(args, unsigned int), *format);
 	else if (*format == 'p')
 		count = ft_putaddr(va_arg(args, void *));
+	else if (*format)
+	{
+		count = ft_putchar(*(format - 1));
+		count += ft_putchar(*format);
+	}
 	return (count);
 }
 
@@ -40,6 +44,7 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	int		count;
+	int		tmp;
 
 	va_start(args, format);
 	count = 0;
@@ -50,7 +55,10 @@ int	ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			count += specifier_check(format, args);
+			tmp = specifier_check(format, args);
+			if (tmp == -1)
+				return (-1);
+			count += tmp;
 		}
 		else
 			count += ft_putchar(*format);

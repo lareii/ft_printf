@@ -6,7 +6,7 @@
 /*   By: ebabaogl <ebabaogl@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 11:25:13 by ebabaogl          #+#    #+#             */
-/*   Updated: 2024/11/11 18:26:22 by ebabaogl         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:42:25 by ebabaogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,15 @@ int	ft_putnbr(int nb)
 		count++;
 	}
 	if (nb > 9)
-		count += ft_putnbr(nb / 10);
-	tmp = ft_putchar('0' + nb % 10);
-	if (tmp == -1)
+	{
+		tmp = ft_putnbr(nb / 10);
+		if (tmp == -1)
+			return (-1);
+		count += tmp;
+	}
+	if (ft_putchar('0' + nb % 10) == -1)
 		return (-1);
-	count += tmp;
+	count++;
 	return (count);
 }
 
@@ -43,11 +47,15 @@ int	ft_putunbr(unsigned int nb)
 
 	count = 0;
 	if (nb > 9)
-		count += ft_putunbr(nb / 10);
-	tmp = ft_putchar('0' + nb % 10);
-	if (tmp == -1)
+	{
+		tmp = ft_putunbr(nb / 10);
+		if (tmp == -1)
+			return (-1);
+		count += tmp;
+	}
+	if (ft_putchar('0' + nb % 10) == -1)
 		return (-1);
-	count += tmp;
+	count++;
 	return (count);
 }
 
@@ -58,7 +66,12 @@ int	ft_puthexnbr(unsigned int nb, char x)
 
 	count = 0;
 	if (nb > 15)
-		count += ft_puthexnbr(nb / 16, x);
+	{
+		tmp = ft_puthexnbr(nb / 16, x);
+		if (tmp == -1)
+			return (-1);
+		count += tmp;
+	}
 	if (nb % 16 < 10)
 	{
 		tmp = ft_putnbr(nb % 16);
@@ -68,10 +81,9 @@ int	ft_puthexnbr(unsigned int nb, char x)
 	}
 	else
 	{
-		tmp = ft_putchar((x - 23) + (nb % 16 - 10));
-		if (tmp == -1)
+		if (ft_putchar((x - 23) + (nb % 16 - 10)) == -1)
 			return (-1);
-		count += tmp;
+		count++;
 	}
 	return (count);
 }

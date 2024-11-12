@@ -6,7 +6,7 @@
 /*   By: ebabaogl <ebabaogl@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 11:28:33 by ebabaogl          #+#    #+#             */
-/*   Updated: 2024/11/11 18:23:44 by ebabaogl         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:54:01 by ebabaogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ static int	putptrnbr(uintptr_t nb)
 
 	count = 0;
 	if (nb > 15)
-		count += putptrnbr(nb / 16);
+	{
+		tmp = putptrnbr(nb / 16);
+		if (tmp == -1)
+			return (-1);
+		count += tmp;
+	}
 	if (nb % 16 < 10)
 	{
 		tmp = ft_putnbr(nb % 16);
@@ -30,10 +35,9 @@ static int	putptrnbr(uintptr_t nb)
 	}
 	else
 	{
-		tmp = ft_putchar('a' + (nb % 16 - 10));
-		if (tmp == -1)
+		if (ft_putchar('a' + (nb % 16 - 10)) == -1)
 			return (-1);
-		count += tmp;
+		count++;
 	}
 	return (count);
 }
