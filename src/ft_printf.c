@@ -6,7 +6,7 @@
 /*   By: ebabaogl <ebabaogl@student.42kocaeli.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 15:36:54 by ebabaogl          #+#    #+#             */
-/*   Updated: 2024/11/10 12:48:38 by ebabaogl         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:40:39 by ebabaogl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	ft_printf(const char *format, ...)
 
 	va_start(args, format);
 	count = 0;
+	if (!format)
+		return (-1);
 	while (*format)
 	{
 		if (*format == '%')
